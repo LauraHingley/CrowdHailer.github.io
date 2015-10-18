@@ -31,12 +31,10 @@ If the function could not return a value then it returns a tuple tagged `:error`
 Subsequent code can then pattern match on the tag to call the correct behaviour.
 
 {% highlight elixir %}
-```elixir
 case MyModule.flaky_method do
   {:ok, value} -> IO.puts "All good value was: #{value}."
   {:error, reason} -> IO.puts "Uh oh! Failed due to #{reason}."
 end
-```
 {% endhighlight %}
 
 Returning a tagged tuple is only a convention.
@@ -58,7 +56,6 @@ Ideally our code will resemble an intuitive description of the problem; we descr
 Given that it is possible for each of our steps to fail, we need to prepare to handle those errors. The error handling can pollute our nice list of instructions and result in code littered with conditionals.
 
 {% highlight elixir %}
-```elixir
 result = case File.read("my_company/employees.json") do
   {:ok, contents} ->
     case Poison.decode(contents) do
@@ -73,7 +70,6 @@ result = case File.read("my_company/employees.json") do
     end
   {:error, reason} -> {:error, reason}
 end
-```
 {% endhighlight %}
 
 Well that's ugly. Can we do this better?
@@ -95,18 +91,15 @@ It has the following behaviour:
 - If the result is a failure, don't invoke the next function.
 
 {% highlight elixir %}
-```elixir
 defmodule Result do
   def bind({:ok, value}, func) when is_function(func, 1), do: func.(value)
   def bind(failure = {:error, _}, _func), do: failure
 end
-```
 {% endhighlight %}
 
 With the `bind` method we can then return to a linear set of steps.
 
 {% highlight elixir %}
-```elixir
 import Result
 
 {:ok, "my_company/employees.json"}
@@ -117,7 +110,6 @@ import Result
   (_) -> {:error, :key_not_found}
   # This noise here is only necessary as the Dict returns :error without a reason
 end)
-```
 {% endhighlight %}
 
 Not bad! We have a single list of steps, but having the `bind` function and function capturing everywhere still makes this a bit messy.
@@ -139,7 +131,6 @@ Once I have finished reading [Metaprogramming Elixir](https://pragprog.com/book/
 *I have assumed the API for dict is updated*
 
 {% highlight elixir %}
-```elixir
 use Result
 
 def get_employee_data(file, name) do
@@ -156,7 +147,6 @@ def handle_user_data({:error, :key_not_found}), do: IO.puts("Could not find empl
 
 get_employee_data("my_company/employees.json")
 |> handle_user_data
-```
 {% endhighlight %}
 
 ### Conclusion
