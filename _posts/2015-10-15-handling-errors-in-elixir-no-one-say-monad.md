@@ -2,7 +2,7 @@
 layout: post
 title: Handling Errors in Elixir, No one say Monad.
 description: Advice for handling errors in Elixir pipelines.
-date: 2015-10-15 14:56:05
+date: 2015-10-18 17:00:05
 tags:
 - Elixir
 - Functional Programming
