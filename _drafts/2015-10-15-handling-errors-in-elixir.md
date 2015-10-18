@@ -14,7 +14,7 @@ author: Peter Saxton
 
 This post is to extend a throwaway comment I made on [Twitter](https://twitter.com/CrowdHailer/status/654202422416556032) about returning tagged tuples as the result of any expression in Elixir.
 
-**Tempted so say all elixir funcs should return a result tuple. `{:ok, 4} = 2 + 2`**
+**Tempted to say all elixir funcs should return a result tuple. `{:ok, 4} = 2 + 2`**
 
 Obviously several people disagreed and a tweet was never going to be enough to explain my reasoning.
 So here goes...
@@ -44,7 +44,7 @@ In the real world many functions do not adhere to this contract:
 
 - Some functions simply return `nil` or `:error` instead of a tuple and a reason.
 - Some functions can't fail so just return a value. As in my original tweet, adding 2 numbers always works and so `2 + 2` will only return `4`.
-- Some functions borrow a Ruby convention and have functions that can throw errors end with  an exclamation mark.
+- Some functions borrow a Ruby convention and have functions that can throw errors and end with an exclamation mark.
 
 ### A problem to solve
 
@@ -80,7 +80,7 @@ Well that's ugly. Can we do this better?
 
 Thinking about it a bit harder we can see a common pattern in the code:
 If the result of a step is successful, we want to take the value of the result and use it in the next step.
-But if the result was an error then we want to stop processing and return.
+But if the result was an error then we want to stop processing.
 
 ### How about a Result module?
 
@@ -88,7 +88,7 @@ Let's create a module that has the responsibilty of handling this conventional e
 The `Result` module handles passing values from `:ok` tagged tuples to the next function.
 But if the result is an `:error` tagged tuple then following functions will simply be ignored.
 
-The method of interest is `bind`, so-called to further reading on the subject easier.
+The function of interest is `bind`.
 It has the following behaviour:
 
 - If the result given is a success, call the next function with the returned value.
@@ -120,11 +120,11 @@ end)
 ```
 {% endhighlight %}
 
-Not bad! We have a single list of steps, but having the `bind` function and function captures everywhere still makes this a bit messy.
+Not bad! We have a single list of steps, but having the `bind` function and function capturing everywhere still makes this a bit messy.
 
 Can we go better again?
 
-### There is a Monad in the house
+### There is a monad in the house.
 
 This combination of tagged tuples can be viewed as a result monad. The result monad is a monad because it has features in common with other monads.
 
@@ -164,10 +164,10 @@ get_employee_data("my_company/employees.json")
 At the end of the last example we used a regular pipe to pass the tuple to the function instead of to the extracted value.
 In practice this often happens as the last step because we can't put off handling errors forever.
 And nor should we, code is confident when we can handle errors all in one place.
-This last function that knows about errors expects a tuple and not just the value to label this difference I normally name them `handle_something`.
+This last function that knows about errors expects a tuple and not just the value  - to label this difference I normally name them `handle_something`.
 
 So does considering monads in a pipeline help or hinder your thinking?
-I think so but and have managed to use a result pipeline in a couple of places so far.
+I think it helps and have managed to use a result pipeline in a couple of places so far.
 If you are able to try it out do let me know how it goes.
 
 ### Resources
