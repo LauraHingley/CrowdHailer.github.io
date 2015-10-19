@@ -123,10 +123,11 @@ This combination of tagged tuples can be viewed as a result monad. The result mo
 Monads are a very abstract concept and as we are not trying to generalise any further we do not need to investigate them any further.
 Using the result tuple as a monad allows us to use the experience of people who have thought more about monads.
 
-For this reason I am working on an extension to the result module that will handle tagged tuples.
+For this reason I am working on an extension to the result module that will handle tagged tuples as monads.
 I want it to be able to handle `{:ok, value} | {:error, reason}` only so that it provides guidance on the API for other functions.
+The extension will be the ok-pipeline `|ok>` a combination of an elixir pipeline and the bind function.
 
-Once I have finished reading [Metaprogramming Elixir](https://pragprog.com/book/cmelixir/metaprogramming-elixir)(great book) then our example problem can be refactored further.
+With this ok-pipeline our example problem could be refactored even further.
 
 *I have assumed the API for dict is updated*
 
