@@ -125,7 +125,8 @@ Using the result tuple as a monad allows us to use the experience of people who 
 
 For this reason I am working on an extension to the result module that will handle tagged tuples as monads.
 I want it to be able to handle `{:ok, value} | {:error, reason}` only so that it provides guidance on the API for other functions.
-The extension will be the ok-pipeline `|ok>` a combination of an elixir pipeline and the bind function.
+The extension will be the ok-pipeline macro - `|ok>`.
+This macro will be a combination of an elixir pipeline and the bind function.
 
 With this ok-pipeline our example problem could be refactored even further.
 
