@@ -1,6 +1,7 @@
 ---
 layout: post
-title: 'Fred George talk and Microservice excitement '
+title: 'Fred George talk and Microservice excitement'
+description: My introduction to the microservice architecture
 date: '2014-03-26T13:08:00+00:00'
 tags:
 - microservices
