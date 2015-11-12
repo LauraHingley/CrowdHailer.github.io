@@ -31,7 +31,7 @@ Want to jump straight to the code?
 
 We first need to create a `package.json` file to identify our project as a node project.
 This can be done by hand or by executing `npm init`, which walks through setup.
-The only setup we need is to give the project a name, lets call it calculator.
+The only setup we need is to give the project a name, let's call it calculator.
 
 Next is to fetch the development dependencies we will use.
 Fetch all the dependencies by executing the following.
@@ -48,8 +48,7 @@ $ npm install --save-dev \
 {% endhighlight %}
 
 At this point make sure that you have added `node_modules` to your `.gitignore` file.
-It is not a good idea to commit all these node files to version control.
-Something that I have done on too many occasions.
+It is not a good idea to commit all these node files to version control-something that I have done on too many occasions.
 
 ### Setting up Karma.js
 
@@ -101,11 +100,10 @@ Config file generated at "/home/peter/Projects/Calculator/karma.conf.js".
 - We do not need Require.js as we will be replacing this with Rollup.js
 - You can select any browser from the list, just make sure that you have installed the correct browser runner.
 - Don't worry about the missing test file, we will add it shortly.
-- It would be nice to be able to watch our test files. Unfortunately I do not know how to do this yet with Rollup.js.
 
 ### Creating our first test
 
-Lets create a single test to check out karma setup.
+Let's create a single test to check out Karma setup.
 We will create a main test file and add an example test.
 
 {% highlight js %}
@@ -143,7 +141,7 @@ Add a line for it in the `.gitignore`.
 
 ### Simple test execution
 
-Typing all those commands in to execute the tests would be painful.
+Typing all those commands to execute the tests would be painful.
 We can make life much easier by declaring them as npm scripts.
 First one change is needed in `karma.conf.js`, we will set singleRun configuration to be true.
 
@@ -161,7 +159,7 @@ module.exports = function(config) {
 ```
 {% endhighlight %}
 
-Alot of functionality can end up in npm scripts and it is easy to write magical single line scripts that noone understands.
+A lot of functionality can end up in npm scripts and it is easy to write magical single line scripts that no-one understands.
 My advice is to write small contained scripts for bundling and running the tests. Then have a third script that coordinates the small component scripts.
 Add these scripts into `package.json`.
 
@@ -194,7 +192,7 @@ Having a trivial test command is important if test driving the development of a 
 At the moment we have Rollup.js setup but it is redundant as we have no modules.
 It is time to test some real code for a calculator.
 The first feature a calculator should have is the ability to add two numbers.
-lets adjust the test file so that it imports the calculator and add a meaningful test.
+Let's adjust the test file so that it imports the calculator and add a meaningful test.
 
 {% highlight js %}
 ```js
@@ -241,7 +239,7 @@ With the tests passing again our impressive calculator is taking shape.
 
 ### Building a distribution
 
-The final thing, now we have a working calculator components is to bundle the source into a single file.
+The final thing, now we have working calculator components, is to bundle the source into a single file.
 This is so it can be consumed in all the browsers that are not yet supporting ES6 modules.
 
 Using Rollup.js again we bundle the distribution and save it in `index.js`.
@@ -255,7 +253,7 @@ $ ./node_modules/.bin/rollup \
 ```
 {% endhighlight %}
 
-We pass the format and name options to that our final bundle is available in the global namespace and can be used by other js code.
+We pass the format and name options so that our final bundle is available in the global namespace and can be used by other js code.
 
 The final step is to add index.js to `.gitignore`.
 
